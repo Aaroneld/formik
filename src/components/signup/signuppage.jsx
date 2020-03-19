@@ -42,7 +42,7 @@ function SignUpPage(props){
             </Grid>
             <Grid item className={classes['grid-row']} xs={4}>
                 <Paper className={classes.paper}>
-                    <SignUp setFormState={props.setFormState}/>
+                    <SignUp/>
                 </Paper>
             </Grid>
           </Grid>

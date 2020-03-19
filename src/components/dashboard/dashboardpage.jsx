@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Grid, Paper, Typography, Toolbar, AppBar} from '@material-ui/core';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles({
     "grid-top-bottom": {
@@ -54,5 +55,11 @@ function DashboardPage(props){
     )
 }
 
+const mapStateToProps = state => {
 
-export default DashboardPage;
+    return {
+        formState: state
+    }
+}
+
+export default connect(mapStateToProps, {})(DashboardPage);

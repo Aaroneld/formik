@@ -4,6 +4,8 @@ import * as yup from 'yup';
 import { Typography, TextField, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addFormData } from '../../actions';
 
 const useStyles = makeStyles({
 
@@ -91,23 +93,25 @@ function SignUp(props){
         <section>
             <Typography className={classes.header}>Sign Up</Typography>
             <Formik initialValues={{}}
-            onSubmit={(data, {setSubmitting}) => {
-                setSubmitting(true);
+            onSubmit={(data, helpers) => {
+                helpers.setSubmitting(true);
 
-                props.setFormState({
+                props.addFormData({
                     firstName: data.firstName,
                     lastName: data.lastName,
                     username: data.username,
                     password: data.password,
                     email: data.email,
-                })
+                });
 
-                setSubmitting(false);
-                history.push('/dashboard')
+                console.log(helpers);
+
+                helpers.setSubmitting(false);
+                history.push('/dashboard');
             }}
             validationSchema={validationSchema}
             >
-            {({errors, isSubmitting, isValid}) =>(
+            {({isSubmitting, isValid}) =>(
                 <Form className={classes.form}>
                     <Field
                         className={classes.field} 
@@ -182,4 +186,4 @@ function SignUp(props){
     );
 };
 
-export default SignUp;
+export default connect(null, { addFormData })(SignUp);
