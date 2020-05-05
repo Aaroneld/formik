@@ -89,26 +89,28 @@ function SignUp(props){
     const classes = useStyles();
     const history = useHistory();
 
+    const handleSubmit = (data, helpers) => {
+        helpers.setSubmitting(true);
+
+        props.addFormData({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username,
+            password: data.password,
+            email: data.email,
+        });
+
+        console.dir(helpers);
+
+        helpers.setSubmitting(false);
+        history.push('/dashboard');
+    }
+
     return(
         <section>
             <Typography className={classes.header}>Sign Up</Typography>
             <Formik initialValues={{}}
-            onSubmit={(data, helpers) => {
-                helpers.setSubmitting(true);
-
-                props.addFormData({
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    username: data.username,
-                    password: data.password,
-                    email: data.email,
-                });
-
-                console.log(helpers);
-
-                helpers.setSubmitting(false);
-                history.push('/dashboard');
-            }}
+            onSubmit={handleSubmit}
             validationSchema={validationSchema}
             >
             {({isSubmitting, isValid}) =>(
